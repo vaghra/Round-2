@@ -3,66 +3,76 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f4f8; /* Light background for uniform look */
+    font-family: 'Roboto', sans-serif;
+    background-color: #0d1117; /* Deep dark background */
+    color: #c9d1d9; /* Soft light text */
 }
 
 header {
-    background-color: #003366; /* Dark blue header */
-    color: #ffffff;
-    padding: 20px 0;
+    background-color: #161b22; /* Darker header */
+    color: #58a6ff; /* Bright blue for text */
+    padding: 30px 0;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* More intense shadow */
 }
 
 h1 {
     margin: 0;
-    font-size: 2.5em;
-    font-weight: 700;
+    font-size: 3em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
 }
 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    height: calc(100vh - 60px); /* Adjust for header height */
+    padding: 40px;
+    height: calc(100vh - 80px); /* Adjust for larger header */
 }
 
 table {
-    width: 90%;
-    max-width: 800px;
-    border-collapse: collapse;
-    background-color: #ffffff; /* Clean white background */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 85%;
+    max-width: 900px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #21262d; /* Deep background for table */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Deeper shadow for depth */
     overflow: hidden; /* Ensure border-radius is visible */
 }
 
 th, td {
-    padding: 14px;
+    padding: 20px;
     text-align: center;
-    border-bottom: 1px solid #d1d9e6; /* Light gray border for rows */
+    border-bottom: 1px solid #30363d; /* Dark gray border for rows */
+    font-size: 1.1em;
 }
 
 th {
-    background-color: #004080; /* Medium blue for header cells */
-    color: #ffffff;
-    font-size: 1.1em;
-    font-weight: 600;
+    background-color: #30363d; /* Slightly darker header cells */
+    color: #58a6ff; /* Bright blue text */
+    font-size: 1.2em;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 tr:nth-child(even) {
-    background-color: #f5f7f9; /* Very light gray for even rows */
+    background-color: #161b22; /* Darker gray for even rows */
 }
 
 tr:hover {
-    background-color: #e2e6ea; /* Subtle hover effect */
+    background-color: #30363d; /* Highlight row on hover */
+    transition: background-color 0.3s ease-in-out; /* Smooth transition */
 }
 
 caption {
     caption-side: top;
-    font-size: 1.2em;
-    margin: 10px 0;
-    color: #003366; /* Dark blue for caption text */
+    font-size: 1.5em;
+    margin: 15px 0;
+    color: #58a6ff; /* Bright blue for caption text */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Subtle text shadow */
+    font-weight: 600;
 }

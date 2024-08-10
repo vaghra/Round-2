@@ -6,22 +6,182 @@
     <title>CodArt'24 Challenges</title>
     <link rel="stylesheet" href="styles2.css">
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Very dark background for a modern look */
+            color: #e0e0e0; /* Light text color */
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 3em; /* Big heading */
+            color: #1de9b6; /* Teal color for heading */
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h1::after {
+            content: "";
+            display: block;
+            width: 60%;
+            height: 4px;
+            background: #e0e0e0;
+            margin: 10px auto 0;
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        h1:hover::after {
+            transform: scaleX(1);
+        }
+        
         .challenge {
             position: relative;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #1c1c1c; /* Dark background for challenges */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
-
+        
+        .challenge:hover {
+            transform: scale(1.02); /* Slightly enlarge on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
+            border-color: #26a69a; /* Teal border color on hover */
+        }
+        
         .status-image {
             position: absolute;
             top: 10px;
             right: 10px;
             display: none;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
+        
+        .buttons-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .buttons-row .download-button,
+        .buttons-row .submit-button {
+            flex: 1;
+            margin: 0 5px;
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .buttons-row .download-button {
+            background-color: #26a69a; /* Teal background for download */
+            color: white;
+        }
+        
+        .buttons-row .download-button:hover {
+            background-color: #00796b; /* Darker teal on hover */
+            transform: translateY(-3px); /* Lift up effect on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+        }
+        
+        .buttons-row .submit-button {
+            background-color: #4caf50; /* Green background for submit */
+            color: white;
+        }
+        
+        .buttons-row .submit-button:hover {
+            background-color: #388e3c; /* Darker green on hover */
+            transform: translateY(-3px); /* Lift up effect on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+        }
+        
+        .hint-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #009688; /* Teal background for hint */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .hint-button:hover {
+            background-color: #00796b; /* Darker teal on hover */
+            transform: translateY(-3px); /* Lift up effect on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+        }
+        
+        .hint-button:disabled {
+            background-color: #607d8b;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            color: #ff5252; /* Red color for error messages */
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .hint {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .total-points {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1c1c1c;
+            color: #26a69a; /* Teal color for points */
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .total-points:hover {
+            background-color: #121212; /* Darker background on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            margin: 2px;
+            background-color: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 0.9em;
+        }
+        
+        .tags-container {
+            margin-top: 10px;
+        }
+          
     </style>
 </head>
 <body>
@@ -36,157 +196,155 @@
     </div>
 
     <script>
-        const flags = [
-            'flag{p33k_@_b00_19eccd10}', 'flag{caesar_d3cr9pt3d_b204adc6}', 'flag{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}',
-            'flag{t1m3m@ch1n3_5cde9075}', 'flag{correct_flag5}', 'flag{correct_flag6}',
-            'flag{correct_flag7}', 'flag{correct_flag8}', 'flag{correct_flag9}',
-            'flag{correct_flag10}', 'flag{correct_flag11}', 'flag{correct_flag12}',
-            'flag{correct_flag13}', 'flag{correct_flag14}', 'flag{correct_flag15}',
-            'flag{correct_flag16}', 'flag{correct_flag17}', 'flag{correct_flag18}',
-            'flag{correct_flag19}', 'flag{correct_flag20}'
-        ];
+            const flags = [
+                'ctf{thequickbrowndogoverjumpslazyfox}', 'byuctf{charlie_the_fish_was_a_spy_too}', 'byuctf{so_thats_what_those_files_are_for__adec60bd}', 'ctf{digital_forensics_is_my_favorite}',
+                'byuctf{even_w1th_the_l1ttlest_of_1nfo_1_can_reconstruct_1t}'
+            ];
+        
+            const points = new Array(15).fill(30);
+        
+            const fileNames = [
+                'secret.txt', 'charliethefish.jpg', 'leak_final.tar.gz', 'test.html', 
+                'recibstruct.png'
+            ];
+            
+            const descriptions = [
+                `I discovered a phenomenon called "Getting to Philosophy" in Wikipedia - [read up about it](https://en.Wikipedia.org/wiki/Wikipedia:Getting_to_Philosophy) if you don't know what it is. I realized I could use this to send secret messages. <br>
+                *Note - "first link in the main text of an English Wikipedia article" means we don't count disambiguations, pronunciations, redirects, words in parentheses or italics, sound clips, citations, template messages, or table of contents as the "first link"*<br>
+                Flag format - ctf{phrase} `,
+                "FISH🐟", 
+                "Can you find the flag in these files?", 
+                "How good are you at password cracking?", 
+                `To prevent the need to brute force submit what may seem to be multiple likely answers, I have provided the MD5 hash of the entire flag so you can verify that you have it right before submitting it online (lessening load on the server)<br>
+                63b1424fa6fe8aa81d9ce4b5637f7acd`,
 
-        const points = [
-            100, 100, 100, 15, 25, 35, 40, 50, 60, 70,
-            80, 90, 100, 110, 120, 130, 140, 150, 160, 170
-        ];
 
-        const fileNames = [
-            'challenge (1).zip', 'challenge(2).txt', 'challenge(3).txt',
-            'challenge(4).zip', 'your_actual_file5.zip', 'your_actual_file6.zip',
-            'your_actual_file7.zip', 'challenge(8).txt', 'your_actual_file9.zip',
-            'your_actual_file10.zip', 'your_actual_file11.zip', 'your_actual_file12.zip',
-            'your_actual_file13.zip', 'your_actual_file14.zip', 'your_actual_file15.zip',
-            'your_actual_file16.zip', 'your_actual_file17.zip', 'your_actual_file18.zip',
-            'your_actual_file19.zip', 'your_actual_file20.zip'
-        ];
-
-        const descriptions = [
-            "I've gotten bored of handing out flags as text. Wouldn't it be cool if they were an image instead? You can download the challenge files!",
-
-            "Can you get the real meaning from a file. Download the file from given button.", 
-
-            "Here is a string of ASCII numbers, unfortunately I couldn't read in ASCII. Would you mind converting it to a readable string? Download the file to proceed.",
-
-            "What was I last working on? I remember writing a note to help me remember... You can download the challenge files to proceed.",
-
-            'Description for Challenge 5',
-            'Description for Challenge 6',
-            'Description for Challenge 7',
-            "Cryptography can be easy, do you know what ROT13 is?",
-            'Description for Challenge 9',
-            'Description for Challenge 10',
-            'Description for Challenge 11', 
-            'Description for Challenge 12',
-            'Description for Challenge 13', 
-            'Description for Challenge 14', 
-            'Description for Challenge 15',
-            'Description for Challenge 16', 
-            'Description for Challenge 17', 
-            'Description for Challenge 18',
-            'Description for Challenge 19', 
-            'Description for Challenge 20'
-        ];
-
-        const hints = [
-            "QR codes are a way of encoding data. While they're most known for storing URLs, they can store other things too.", 
-            "Engaging in various decoding processes is of utmost importance.", 
-            "CyberChef is a great online tool for any encoding but especially ASCII. I would recommend using from hex function.",
-            'Description for Challenge 4',
-            'Description for Challenge 5',
-            'Description for Challenge 6',
-            'Description for Challenge 7',
-            'Hints are in the question already!',
-            'Description for Challenge 9',
-            'Description for Challenge 10',
-            'Description for Challenge 11', 
-            'Description for Challenge 12',
-            'Description for Challenge 13', 
-            'Description for Challenge 14', 
-            'Description for Challenge 15',
-            'Description for Challenge 16', 
-            'Description for Challenge 17', 
-            'Description for Challenge 18',
-            'Description for Challenge 19', 
-            'Description for Challenge 20'
-        ];
-
-        const tags = [
-            ['FORENSICS', 'QR CODE', 'browser webshell solvable'], 
-            ['Cryptography', 'base64', 'caesar'], 
-            ['Easy', 'General skills', 'ASCII'],
-            ['tag4-1', 'tag4-2', 'tag4-3'], 
-            ['tag5-1', 'tag5-2', 'tag5-3'], 
-            ['tag6-1', 'tag6-2', 'tag6-3'],
-            ['tag7-1', 'tag7-2', 'tag7-3'], 
-            ['Beginner', 'Cryptography', 'caesar'], 
-            ['tag9-1', 'tag9-2', 'tag9-3'],
-            ['tag10-1', 'tag10-2', 'tag10-3'],
-            ['tag11-1', 'tag11-2', 'tag11-3'], 
-            ['tag12-1', 'tag12-2', 'tag12-3'],
-            ['tag13-1', 'tag13-2', 'tag13-3'], 
-            ['tag14-1', 'tag14-2', 'tag14-3'], 
-            ['tag15-1', 'tag15-2', 'tag15-3'],
-            ['tag16-1', 'tag16-2', 'tag16-3'], 
-            ['tag17-1', 'tag17-2', 'tag17-3'],
-            ['tag18-1', 'tag18-2', 'tag18-3'],
-            ['tag19-1', 'tag19-2', 'tag19-3'], 
-            ['tag20-1', 'tag20-2', 'tag20-3']
-        ];
-
-        let totalPoints = parseInt(sessionStorage.getItem('totalPoints')) || 0;
-        const completedChallenges = new Set(JSON.parse(sessionStorage.getItem('completedChallenges')) || []);
-        const teamName = sessionStorage.getItem('teamName') || prompt('Enter your team name:');
-        sessionStorage.setItem('teamName', teamName);
-
-        document.getElementById('total-points').textContent = totalPoints;
-
-        // Dynamically generate challenge HTML with tick image
-        const container = document.querySelector('.container');
-        const tickImageSrc = 'tick.png'; // Path to your tick image
-        for (let i = 0; i < 20; i++) {
-            const challengeDiv = document.createElement('div');
-            challengeDiv.className = 'challenge';
-            challengeDiv.id = `challenge${i + 1}`;
-
-            const tagsHTML = tags[i].map(tag => `<span class="tag">${tag}</span>`).join(' ');
-
-            challengeDiv.innerHTML = `
-                <h2>Challenge ${i + 1}</h2>
-                <p>${descriptions[i]}</p>
-                <div class="tags-container">${tagsHTML}</div>
-                <input type="text" placeholder="flag{your_flag}" class="flag-input" value="${sessionStorage.getItem(`flagInput${i}`) || ''}">
-                <div class="buttons-row">
-                    <a href="files/${fileNames[i]}" download="${fileNames[i]}" class="download-button">Download File</a>
-                    <button onclick="checkFlag(${i}, event)" class="submit-button">Submit Flag</button>
-                </div>
-                <button onclick="toggleHint(${i})" class="hint-button">Hint</button>
-                <p class="hint" id="hint${i}">${hints[i]}</p>
-                <p class="error-message"></p>
-                <img src="${tickImageSrc}" alt="Completed" class="status-image" id="status${i}">
-            `;
-
-            container.appendChild(challengeDiv);
-        }
-
-        function checkFlag(challengeIndex, event) {
-            event.preventDefault();
-
-            const challenge = document.getElementsByClassName('challenge')[challengeIndex];
-            const input = challenge.getElementsByClassName('flag-input')[0];
-            const errorMessage = challenge.getElementsByClassName('error-message')[0];
-            const button = challenge.getElementsByClassName('submit-button')[0];
-            const statusImage = challenge.querySelector('.status-image');
-
-            if (input.value === flags[challengeIndex]) {
-                if (!completedChallenges.has(challengeIndex)) {
-                    totalPoints += points[challengeIndex];
+            ];
+            
+            const hints = [
+                "U have to reach the Philosophy or u can use https://github.com/Mohamed2del/Getting_into_Philosohpy", 
+                "Try every tool u got man which starts with S", 
+                ".DS Store",
+                'What did we use to crack password the last round?? ',
+                'Just become obsessed with the endings of the characters? Zoom in really far? And overthink your life?',
+            ];
+            
+            const tags = [
+                ['Cryptography', 'Hard'],
+                ['Stegnography',  'easy'], 
+                ['secretfile', 'zip', `search`],
+                ['password', 'jacktheripper', 'medium'], 
+                ['reconstruct', 'password'],
+            ];
+            
+            let totalPoints = parseInt(sessionStorage.getItem('totalPoints')) || 0;
+            const completedChallenges = new Set(JSON.parse(sessionStorage.getItem('completedChallenges')) || []);
+            const teamName = sessionStorage.getItem('teamName') || prompt('Enter your team name:');
+            sessionStorage.setItem('teamName', teamName);
+        
+            document.getElementById('total-points').textContent = totalPoints;
+        
+            // Dynamically generate challenge HTML with tick image
+            const container = document.querySelector('.container');
+            const tickImageSrc = 'tick.png'; // Path to your tick image
+            for (let i = 0; i < 5; i++) {
+                const challengeDiv = document.createElement('div');
+                challengeDiv.className = 'challenge';
+                challengeDiv.id = `challenge${i + 1}`;
+        
+                const tagsHTML = tags[i].map(tag => `<span class="tag">${tag}</span>`).join(' ');
+        
+                challengeDiv.innerHTML = `
+                    <h2>Challenge ${i + 1}</h2>
+                    <p>${descriptions[i]}</p>
+                    <div class="tags-container">${tagsHTML}</div>
+                    <input type="text" placeholder="flag{your_flag}" class="flag-input" value="${sessionStorage.getItem(`flagInput${i}`) || ''}">
+                    <div class="buttons-row">
+                        <a href="files/${fileNames[i]}" download="${fileNames[i]}" class="download-button">Download File</a>
+                        <button onclick="checkFlag(${i}, event)" class="submit-button">Submit Flag</button>
+                    </div>
+                    <button onclick="showHint(${i})" class="hint-button">Hint</button>
+                    <p class="hint" id="hint${i}">${hints[i]}</p>
+                    <p class="error-message"></p>
+                    <img src="${tickImageSrc}" alt="Completed" class="status-image" id="status${i}">
+                `;
+        
+                container.appendChild(challengeDiv);
+            }
+        
+            function checkFlag(challengeIndex, event) {
+                event.preventDefault();
+        
+                const challenge = document.getElementsByClassName('challenge')[challengeIndex];
+                const input = challenge.getElementsByClassName('flag-input')[0];
+                const errorMessage = challenge.getElementsByClassName('error-message')[0];
+                const button = challenge.getElementsByClassName('submit-button')[0];
+                const statusImage = challenge.querySelector('.status-image');
+                const hintButton = challenge.getElementsByClassName('hint-button')[0];
+        
+                if (input.value === flags[challengeIndex]) {
+                    if (!completedChallenges.has(challengeIndex)) {
+                        totalPoints += points[challengeIndex];
+                        document.getElementById('total-points').textContent = totalPoints;
+                        completedChallenges.add(challengeIndex);
+                        sessionStorage.setItem('totalPoints', totalPoints);
+                        sessionStorage.setItem('completedChallenges', JSON.stringify(Array.from(completedChallenges)));
+        
+                        // Send points update to server
+                        fetch('/scorecard/update', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                teamName: teamName,
+                                points: points[challengeIndex]
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to update score');
+                            }
+                            return response.text();
+                        })
+                        .then(() => console.log('Score updated'))
+                        .catch(error => console.error('Error:', error));
+                    }
+                    errorMessage.textContent = 'Correct flag!';
+                    errorMessage.style.color = 'green';
+                    input.disabled = true;
+                    button.disabled = true;
+                    hintButton.disabled = true; // Disable hint button as well
+        
+                    // Show tick image
+                    statusImage.style.display = 'block';
+                } else {
+                    errorMessage.textContent = 'Wrong flag, try again.';
+                    errorMessage.style.color = 'red';
+                }
+        
+                // Store the input value
+                sessionStorage.setItem(`flagInput${challengeIndex}`, input.value);
+            }
+        
+            const revealedHints = new Set(JSON.parse(sessionStorage.getItem('revealedHints')) || []);
+            function showHint(challengeIndex) {
+                if (confirm("2 points shall be deducted on revealing the hint. Do you want to proceed?")) {
+                    const hint = document.getElementById(`hint${challengeIndex}`);
+                    hint.style.display = 'block';
+                    const hintButton = document.getElementsByClassName('hint-button')[challengeIndex];
+                    hintButton.disabled = true;
+            
+                    if (!revealedHints.has(challengeIndex)) {
+                        totalPoints -= 2;
+                        revealedHints.add(challengeIndex);
+                        sessionStorage.setItem('revealedHints', JSON.stringify([...revealedHints]));
+                    }
+            
                     document.getElementById('total-points').textContent = totalPoints;
-                    completedChallenges.add(challengeIndex);
                     sessionStorage.setItem('totalPoints', totalPoints);
-                    sessionStorage.setItem('completedChallenges', JSON.stringify(Array.from(completedChallenges)));
-
-                    // Send points update to server
+                    
+                    // Send points update to server when hint is used
                     fetch('/scorecard/update', {
                         method: 'POST',
                         headers: {
@@ -194,7 +352,7 @@
                         },
                         body: JSON.stringify({
                             teamName: teamName,
-                            points: points[challengeIndex]
+                            points: -2 // Deduct 2 points for hint
                         })
                     })
                     .then(response => {
@@ -203,53 +361,80 @@
                         }
                         return response.text();
                     })
-                    .then(() => console.log('Score updated'))
+                    .then(() => console.log('Score updated due to hint usage'))
                     .catch(error => console.error('Error:', error));
                 }
-                errorMessage.textContent = 'Correct flag!';
-                errorMessage.style.color = 'green';
-                input.disabled = true;
-                button.disabled = true;
-
-                // Show tick image
-                statusImage.style.display = 'block';
-            } else {
-                errorMessage.textContent = 'Wrong flag, try again.';
-                errorMessage.style.color = 'red';
             }
-
-            // Store the input value
-            sessionStorage.setItem(`flagInput${challengeIndex}`, input.value);
-        }
-
-        function initializePage() {
-            document.querySelectorAll('.challenge').forEach((challenge, index) => {
-                const input = challenge.getElementsByClassName('flag-input')[0];
-                const button = challenge.getElementsByClassName('submit-button')[0];
-                const statusImage = challenge.querySelector('.status-image');
-
-                if (completedChallenges.has(index)) {
+            
+            function initializePage() {
+                // Restore revealed hints
+                revealedHints.forEach(index => {
+                    const hint = document.getElementById(`hint${index}`);
+                    hint.style.display = 'block';
+                    const hintButton = document.getElementsByClassName('hint-button')[index];
+                    hintButton.disabled = true;
+                });
+        
+                // Restore status images for completed challenges
+                completedChallenges.forEach(index => {
+                    const input = document.getElementsByClassName('flag-input')[index];
+                    const button = document.getElementsByClassName('submit-button')[index];
+                    const statusImage = document.getElementById(`status${index}`);
+                    const hintButton = document.getElementsByClassName('hint-button')[index];
+        
                     input.disabled = true;
                     button.disabled = true;
-                    challenge.getElementsByClassName('error-message')[0].textContent = 'Correct flag!';
-                    challenge.getElementsByClassName('error-message')[0].style.color = 'green';
-
-                    // Ensure tick image is shown
+                    hintButton.disabled = true; // Ensure hint button is disabled for completed challenges
                     statusImage.style.display = 'block';
+                });
+            }
+        
+            // Call the initialization function
+            initializePage();
+
+            
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+    
+            // Disable specific keyboard shortcuts (e.g., F12, Ctrl+Shift+I, Ctrl+U)
+            document.addEventListener('keydown', function(e) {
+                // F12
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                }
+                // Ctrl+Shift+I (Open Developer Tools)
+                if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                    e.preventDefault();
+                }
+                // Ctrl+U (View Source)
+                if (e.ctrlKey && e.key === 'U') {
+                    e.preventDefault();
+                }
+                // Ctrl+Shift+J (Open Console)
+                if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+                    e.preventDefault();
+                }
+                // Ctrl+Shift+K (Open Console)
+                if (e.ctrlKey && e.shiftKey && e.key === 'K') {
+                    e.preventDefault();
                 }
             });
-
-            document.querySelectorAll('.hint').forEach(hint => {
-                hint.style.display = 'none';
+    
+            // Detect and block the F12 key for Developer Tools
+            window.addEventListener('keydown', function(e) {
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                    return false;
+                }
             });
-        }
-
-        initializePage();
-
-        function toggleHint(challengeIndex) {
-            const hint = document.getElementById(`hint${challengeIndex}`);
-            hint.style.display = hint.style.display === 'none' ? 'block' : 'none';
-        }
-    </script>
+    
+            // Disable the ability to open the DevTools on right-click
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        </script>
+    
 </body>
 </html>
